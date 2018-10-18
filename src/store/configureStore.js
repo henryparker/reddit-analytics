@@ -9,6 +9,7 @@ export default () => {
     combineReducers({
       term: typingReducer,
       searchResult: searchReducer
+      
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

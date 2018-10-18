@@ -1,2 +1,3 @@
 export const CHANGE_TERM = "CHANGE_TERM";
 export const SEARCH_TERM = "SEARCH_TERM";
+export const SEARCH_SENTIMENT = "SEARCH_SENTIMENT";

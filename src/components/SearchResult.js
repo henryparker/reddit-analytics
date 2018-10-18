@@ -8,8 +8,10 @@ export class SearchResult extends Component{
         let results = this.props && this.props.result.length > 0? 
         this.props.result.map(result=> 
         <li class="text-left list-group-item text-primary" key={result.id}>
-        <img class="img-fluid img-thumbnail" src={result.thumbnail !== "self" && result.thumbnail !== "default"? result.thumbnail: "https://images.unsplash.com/photo-1539553296722-f41aa0d2d184?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1ea590d8dd6c9247b9a2d2237b198d5f&auto=format&fit=crop&w=634&q=80"}></img>
-        <a href={`http://reddit.com${result.permalink}`} target="_blank"><p>{result.title}</p></a>
+        <img class="img-fluid img-thumbnail" src={result.thumbnail !== "self" && result.thumbnail !== "default" && ""? result.thumbnail: "https://images.unsplash.com/photo-1539553296722-f41aa0d2d184?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1ea590d8dd6c9247b9a2d2237b198d5f&auto=format&fit=crop&w=634&q=80"}></img>
+        <h1><a href={`http://reddit.com${result.permalink}`} target="_blank">{result.title}</a></h1>
+        <br></br>
+        <p class="h3">{result.selftext}</p>
         </li>) : 
         <p>no result</p>;
 
