@@ -5,6 +5,7 @@ import './App.css';
 
 import SearchDashboard from './components/SearchDashboard';
 import configureStore from './store/configureStore';
+import AppRouter from './routers/AppRouter';
 import {r} from './reddit-auth/reddit-auth';
 
 
@@ -24,7 +25,7 @@ class App extends Component {
         <header className="App-header">
           <p> this is a reddit analysis app</p>
           <Provider store={store}>
-            <SearchDashboard/>
+            <AppRouter/>
           </Provider>
         </header>
       </div>
