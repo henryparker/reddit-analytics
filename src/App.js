@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import './App.css';
+
+import SearchDashboard from './components/SearchDashboard';
+import configureStore from './store/configureStore';
+import {r} from './reddit-auth/reddit-auth';
+
+
+const store = configureStore();
+const print = ()=>{
+  console.log("%c Rendered with 👉 👉👇", "background: purple; color: #FFF");
+  const state = store.getState();
+  console.log(state);
+}
+
+store.subscribe(print);
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <p> this is a reddit analysis app</p>
+          <Provider store={store}>
+            <SearchDashboard/>
+          </Provider>
         </header>
       </div>
     );
   }
 }
+
 
 export default App;
