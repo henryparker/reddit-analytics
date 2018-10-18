@@ -15,9 +15,9 @@ export const searchTerm = (result={}) => ({
     result
 });
 
-export const searchSentiment = (result={}) => ({
+export const searchSentiment = (sentiment={}) => ({
     type: SEARCH_SENTIMENT,
-    result
+    sentiment
 });
 
 export const startSearchTerm =()=>{
