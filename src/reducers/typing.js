@@ -1,10 +1,11 @@
 //typing Reducer
 import {CHANGE_TERM} from '../action-types'
 const term = "";
-export default ( state = term,action)=>{
+const limit = 25 ;
+export default ( state = {term,limit},action)=>{
     switch(action.type){
         case CHANGE_TERM:
-            return action.term;
+            return action.payload;
         default:
             return state;
     }

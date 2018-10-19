@@ -7,14 +7,18 @@ import SearchDashboard from './components/SearchDashboard';
 import configureStore from './store/configureStore';
 import AppRouter from './routers/AppRouter';
 import {r} from './reddit-auth/reddit-auth';
-
+import Sentiment from 'sentiment';
+const sentiment = new Sentiment();
 
 const store = configureStore();
 const print = ()=>{
   console.log("%c Rendered with 👉 👉👇", "background: purple; color: #FFF");
   const state = store.getState();
   console.log(state);
+  console.log(sentiment.analyze("I love cat"));
 }
+const state = store.getState();
+  console.log(state);
 
 store.subscribe(print);
 
