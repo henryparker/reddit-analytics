@@ -18,7 +18,7 @@ export class SearchResult extends Component{
         </div>) : 
         <p>no analytics</p>;
 
-        let results = this.props && this.props.result.length > 0 && this.props.sentiment.length > 0? 
+        let results = this.props && this.props.result.length > 0 && this.props.sentiment.length > 0 && this.props.sentiment.length > 0?
         this.props.result.map((result,index)=> 
         <li class="text-left list-group-item text-secondary" key={result.id}>
             <div class="media">

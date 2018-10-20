@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import typingReducer from '../reducers/typing';
 import searchReducer from '../reducers/search';
 import analyticsReducer from '../reducers/analytics';
+import combineSentimentsReducer from '../reducers/combineSentiments';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
@@ -10,7 +11,9 @@ export default () => {
     combineReducers({
       input: typingReducer,
       searchResult: searchReducer,
-      sentiment: analyticsReducer
+      sentiment: analyticsReducer,
+      combineSentiments: combineSentimentsReducer
+      
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

@@ -1,7 +1,8 @@
-import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT} from '../action-types';
+import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT} from '../action-types';
 import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
+
 const sentiment = new Sentiment();
 
 export const changingTerm = (term="",limit=25) =>({
@@ -12,7 +13,10 @@ export const changingTerm = (term="",limit=25) =>({
     
 });
 
-
+export const combineSentiment = (sentimentVariables={}) =>({
+    type: COMBINE_SENTIMENT,
+    sentimentVariables
+});
 export const searchTerm = (result={}) => ({
     type: SEARCH_TERM,
     result
@@ -35,7 +39,19 @@ export const startSearchTerm = ()=>{
           }).then((searchResult => {
             dispatch(searchTerm(searchResult));
             dispatch(searchSentiment((searchResult.map(result => sentiment.analyze(result.selftext.concat(' ',result.title))))));
-                
+            const sentimentFromStore = getState().sentiment;
+            let positiveWords = [];
+            let negativeWords = [];
+            let score = [];
+            let comparative =[];
+            sentimentFromStore.forEach(emotion => {
+                positiveWords = emotion.positive.concat(positiveWords);
+                negativeWords = emotion.negative.concat(negativeWords);
+                score.unshift(emotion.score);
+                comparative.unshift(emotion.comparative);
+            });
+            dispatch(combineSentiment({positiveWords,negativeWords,comparative,score}));
+            
         }));
     }
 };
