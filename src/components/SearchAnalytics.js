@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {changingTerm,startSearchTerm} from '../actions/search';
 import _ from 'lodash';
 import Chart from 'chart.js';
-import {Bar} from 'react-chartjs-2';
+import {Bar, Radar} from 'react-chartjs-2';
 
 export class SearchAnalitics extends Component{
     
@@ -62,8 +62,20 @@ export class SearchAnalitics extends Component{
                 backgroundColor: negativeBarColor
             }] } : {};
         let negativeBarChart = !_.isEmpty(negativeBarData) ?<div><h3>Negative Sentiments</h3> <Bar data={negativeBarData} option={{}}></Bar></div> : <h1></h1>;
-
         
+        // score Radar
+        let scoreLabel = Object.keys(score).slice(1);
+        let scoreData = scoreLabel.map(k => score[k]);
+        console.log(scoreLabel);
+        console.log(scoreData)
+        let scoreRadarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
+            labels: scoreLabel,
+            datasets: [{
+                label:'score frequency',
+                data: scoreData,
+                backgroundColor: 'rgba(76, 76, 178, 0.9)'
+            }] } : {};
+        let scoreRadarChart = !_.isEmpty(scoreRadarData) ?<div><h3>Score Distribution</h3> <Radar data={scoreRadarData} option={{}}></Radar></div> : <h1></h1>;
         // if(this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)){
         //     let barData = {
         //         labels: arr1,
@@ -82,6 +94,7 @@ export class SearchAnalitics extends Component{
         
         return(
             <div className="container">
+            {scoreRadarChart}
             {postiveWordBarChart}
             {negativeBarChart}
             </div>
