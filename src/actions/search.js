@@ -50,7 +50,15 @@ export const startSearchTerm = ()=>{
                 score.unshift(emotion.score);
                 comparative.unshift(emotion.comparative);
             });
-            dispatch(combineSentiment({positiveWords,negativeWords,comparative,score}));
+            let countPositive = positiveWords.length;
+            let countNegative = negativeWords.length;
+            positiveWords = _.countBy(positiveWords);
+            negativeWords = _.countBy(negativeWords);
+            score = _.countBy(score);
+            // console.log("pos",positiveWords);
+            // console.log("neg",negativeWords);
+            // console.log("score",score);
+            dispatch(combineSentiment({countPositive,countNegative,positiveWords,negativeWords,comparative,score}));
             
         }));
     }

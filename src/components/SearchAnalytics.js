@@ -6,45 +6,64 @@ import Chart from 'chart.js';
 import {Bar} from 'react-chartjs-2';
 
 export class SearchAnalitics extends Component{
-    componentDidUpdate(){
-        
-    }
-
     
+   
     render(){
-        let countUniquePositve = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? _.countBy(this.props.combineSentiments.positiveWords): {};
-        let countPositive = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.positiveWords.length : 0;
-        let countUniqueNegative = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)   ? _.countBy(this.props.combineSentiments.negativeWords): {};
-        let countNegative = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ? this.props.combineSentiments.negativeWords.length : 0;
-        let countScore = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ? _.countBy(this.props.combineSentiments.score): {};
-
-        var arr1 = Object.keys(countUniquePositve);
-        var arr2 = arr1.map(function (k) {
-        return countUniquePositve[k];
-        });
-        console.log(countPositive);
-        console.log(countUniquePositve);
-        console.log(countNegative);
-        console.log(countUniqueNegative);
-        console.log(countScore);
-
-        var dynamicColors = function() {
-                var r = Math.floor(Math.random() * 255);
-                var g = Math.floor(Math.random() * 255);
-                var b = Math.floor(Math.random() * 255);
-                return "rgb(" + r + "," + g + "," + b + ")";};
-        let color = [];
-        arr1.forEach(()=>color.push(dynamicColors()));
-        console.log(color);
-        let barData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {chartData:{
-            labels: arr1,
+        let positiveWords = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.positiveWords: {};
+        let countPositive = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.countPositive : 0;
+        let negativeWords = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)   ? this.props.combineSentiments.negativeWords: {};
+        let countNegative = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ? this.props.combineSentiments.countNegative : 0;
+        let score = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ? this.props.combineSentiments.score: {};
+    
+        // var arr1 = Object.keys(positiveWords).sort();
+        // var arr2 = arr1.map(function (k) {
+        // return positiveWords[k];
+        
+        const sortData = (wordObject) =>{
+            let arr1 = [];
+            for(let word in wordObject){
+                arr1.push([word, wordObject[word]]);
+            }
+            arr1.sort(function(a, b) {
+                return b[1] - a[1];
+            });
+            return arr1
+        }
+         const createColor = (sortable)=>{
+            var dynamicColors = function() {
+                        var r = Math.floor(Math.random() * 255);
+                        var g = Math.floor(Math.random() * 255);
+                        var b = Math.floor(Math.random() * 255);
+                        return "rgb(" + r + "," + g + "," + b + ")";};
+                    let color = [];
+                    sortable.forEach(()=>color.push(dynamicColors()));
+                    return color
+        }
+        // positive words Bar 
+        let positiveWordsSortable = sortData(positiveWords);
+        let positiveBarColor = createColor(positiveWordsSortable);
+        let positiveBarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
+            labels: positiveWordsSortable.map(val => val[0]),
             datasets: [{
                 label:'frequency',
-                data: arr2,
-                backgroundColor: color
-            }] }} : {};
-            
-        let barChart = !_.isEmpty(barData) ? <Bar data={barData.chartData} option={{}}></Bar> : <h1>no chart</h1>;
+                data: positiveWordsSortable.map(val => val[1]),
+                backgroundColor: positiveBarColor
+            }] } : {};
+        let postiveWordBarChart = !_.isEmpty(positiveBarData) ?<div><h3>Positive Sentiments</h3> <Bar data={positiveBarData} option={{}}></Bar></div> : <h1></h1>;
+
+        // negative words Bar
+        let negativeWordsSortable = sortData(negativeWords);
+        let negativeBarColor = createColor(negativeWordsSortable);
+        let negativeBarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
+            labels: negativeWordsSortable.map(val => val[0]),
+            datasets: [{
+                label:'frequency',
+                data: negativeWordsSortable.map(val => val[1]),
+                backgroundColor: negativeBarColor
+            }] } : {};
+        let negativeBarChart = !_.isEmpty(negativeBarData) ?<div><h3>Negative Sentiments</h3> <Bar data={negativeBarData} option={{}}></Bar></div> : <h1></h1>;
+
+        
         // if(this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)){
         //     let barData = {
         //         labels: arr1,
@@ -62,7 +81,10 @@ export class SearchAnalitics extends Component{
         // console.log(countPositve);
         
         return(
-            <div>{barChart}</div>
+            <div className="container">
+            {postiveWordBarChart}
+            {negativeBarChart}
+            </div>
             
         )
     }
