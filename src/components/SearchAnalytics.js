@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {changingTerm,startSearchTerm} from '../actions/search';
 import _ from 'lodash';
 import Chart from 'chart.js';
-import {Bar, Radar} from 'react-chartjs-2';
+import {Bar, Radar, Polar} from 'react-chartjs-2';
 
 export class SearchAnalitics extends Component{
     
@@ -29,12 +29,24 @@ export class SearchAnalitics extends Component{
             });
             return arr1
         }
+
+        const sortDataByKey = (wordObject) =>{
+            let arr1 = [];
+            for(let word in wordObject){
+                arr1.push([word, wordObject[word]]);
+            }
+            arr1.sort(function(a, b) {
+                return b[0] - a[0];
+            });
+            return arr1
+        }
+
          const createColor = (sortable)=>{
             var dynamicColors = function() {
                         var r = Math.floor(Math.random() * 255);
                         var g = Math.floor(Math.random() * 255);
                         var b = Math.floor(Math.random() * 255);
-                        return "rgb(" + r + "," + g + "," + b + ")";};
+                        return "rgba(" + r + "," + g + "," + b +")";};
                     let color = [];
                     sortable.forEach(()=>color.push(dynamicColors()));
                     return color
@@ -62,20 +74,51 @@ export class SearchAnalitics extends Component{
                 backgroundColor: negativeBarColor
             }] } : {};
         let negativeBarChart = !_.isEmpty(negativeBarData) ?<div><h3>Negative Sentiments</h3> <Bar data={negativeBarData} option={{}}></Bar></div> : <h1></h1>;
+        // wordCount Bar
+        let wordCountBarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
+            labels: ['#positive words','#negative words'],
+            datasets: [{
+                label:'frequency',
+                data: [countPositive,countNegative],
+                backgroundColor: ['rgba(225, 65, 65, 0.9)','rgba(32, 79, 207, 0.9)']
+            }] } : {};
+        let wordCountChart = !_.isEmpty(wordCountBarData) ?<div><h3>Word counts</h3> <Bar data={wordCountBarData} option={{}}></Bar></div> : <h1></h1>;
+
         
         // score Radar
-        let scoreLabel = Object.keys(score).slice(1);
-        let scoreData = scoreLabel.map(k => score[k]);
-        console.log(scoreLabel);
-        console.log(scoreData)
+        delete score[0];
+        // let scoreLabel = Object.keys(score);
+        // let scoreData = scoreLabel.map(k => score[k]);
+        
+        let scoreSortable = sortDataByKey(score);
+        scoreSortable = scoreSortable.filter(val => val[1]>1 );
+        let scoreSortablePositive = scoreSortable.filter(val => val[0]>0 );
+        let scoreSortableNegative = scoreSortable.filter(val => val[0]<0 );
+        scoreSortableNegative = scoreSortableNegative.sort((a,b)=>a[0]-b[0]);
+        scoreSortable = scoreSortablePositive.concat(scoreSortableNegative);
+        console.log(scoreSortable);
+        // console.log(scoreLabel);
+        // console.log(scoreData);
         let scoreRadarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
-            labels: scoreLabel,
+            labels: scoreSortable.map(val=>val[0]),
             datasets: [{
                 label:'score frequency',
-                data: scoreData,
+                data: scoreSortable.map(val=>val[1]),
                 backgroundColor: 'rgba(76, 76, 178, 0.9)'
             }] } : {};
-        let scoreRadarChart = !_.isEmpty(scoreRadarData) ?<div><h3>Score Distribution</h3> <Radar data={scoreRadarData} option={{}}></Radar></div> : <h1></h1>;
+        let scoreRadarChart = !_.isEmpty(scoreRadarData) ?<div><h3>Score Radar Distribution</h3> <Radar data={scoreRadarData} option={{}}></Radar></div> : <h1></h1>;
+        
+        //score Polar Chart
+        let scorePolarColor = createColor(scoreSortable);
+        let scorePolarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
+            labels: scoreSortable.map(val=>val[0]),
+            datasets: [{
+                label:'score frequency',
+                data: scoreSortable.map(val=>val[1]),
+                backgroundColor: scorePolarColor
+            }] } : {};
+        let scorePolarChart = !_.isEmpty(scorePolarData) ?<div><h3>Score Polar Distribution</h3> <Polar data={scorePolarData} option={{}}></Polar></div> : <h1></h1>;
+
         // if(this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)){
         //     let barData = {
         //         labels: arr1,
@@ -94,9 +137,16 @@ export class SearchAnalitics extends Component{
         
         return(
             <div className="container">
+            <br/>
             {scoreRadarChart}
-            {postiveWordBarChart}
+            <br/>
+            {scorePolarChart}
+            <br/>
+            {wordCountChart}
+            <br/>
             {negativeBarChart}
+            <br/>
+            {postiveWordBarChart}
             </div>
             
         )

@@ -34,7 +34,8 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <p> this is a reddit analysis app</p>
+          <h1 className="display-1"> This is a reddit analysis app</h1>
+          <br/>
           <Provider store={store}>
             <AppRouter/>
           </Provider>

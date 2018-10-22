@@ -6,17 +6,17 @@ export class SearchResult extends Component{
     
 
     render(){
-        console.log(React.Children);
-        let analytics = this.props && this.props.sentiment.length > 0? 
-        this.props.sentiment.map(result=> 
-        <div>
-            <h1>score : {result.score}</h1>
-            <br/>
-            <h1>negative : {result.negative.length > 0 ? _.join(result.negative, ', ') : <p>none</p> }</h1>
-            <br></br>
-            <h1>positive : {result.positive.length > 0 ? _.join(result.positive, ', ') : <p>none</p>}</h1>
-        </div>) : 
-        <p>no analytics</p>;
+        // console.log(React.Children);
+        // let analytics = this.props && this.props.sentiment.length > 0? 
+        // this.props.sentiment.map(result=> 
+        // <div>
+        //     <h1>score : {result.score}</h1>
+        //     <br/>
+        //     <h1>negative : {result.negative.length > 0 ? _.join(result.negative, ', ') : <p>none</p> }</h1>
+        //     <br></br>
+        //     <h1>positive : {result.positive.length > 0 ? _.join(result.positive, ', ') : <p>none</p>}</h1>
+        // </div>) : 
+        // <p>no analytics</p>;
 
         let results = this.props && this.props.result.length > 0 && this.props.sentiment.length > 0 && this.props.sentiment.length > 0?
         this.props.result.map((result,index)=> 
