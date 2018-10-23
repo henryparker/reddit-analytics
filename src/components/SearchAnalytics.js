@@ -6,30 +6,7 @@ import Chart from 'chart.js';
 import {Bar, Radar, Polar} from 'react-chartjs-2';
 
 export class SearchAnalitics extends Component{
-    constructor(props){
-        super(props);
-        this.state ={addChartData:[1,2]}
-        this.handleClick = this.handleClick.bind(this);
-    }
-    
-    handleClick(e){
-        e.preventDefault();
-        console.log("handleClick");
-        let chartData = e.target.ele;
-        this.setState((state)=>{
-            return{addChartData: chartData }
-        })
-        console.log("term ",this.props.term);
-        console.log("addChartData ",chartData);
-        this.props.addSavedChart(this.props.term,this.state.addChartData);
 
-    }
-
-    onSubmit = (e)=>{
-        console.log("hi");
-        e.preventDefault();
-        this.props.addSavedChart(this.props.term,this.state.addChartData);
-    }
     render(){
         let positiveWords = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.positiveWords: {};
         let countPositive = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.countPositive : 0;
@@ -91,7 +68,8 @@ export class SearchAnalitics extends Component{
                     }
                 }]
             }
-        }}></Bar></div> : <h1></h1>;
+        }}></Bar><br/></div> : <h1></h1>;
+        let postiveWordBarChartButton = !_.isEmpty(positiveBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,postiveWordBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         // negative words Bar
         let negativeWordsSortable = sortData(negativeWords);
@@ -111,7 +89,8 @@ export class SearchAnalitics extends Component{
                     }
                 }]
             }
-        }}></Bar></div> : <h1></h1>;
+        }}></Bar><br/></div> : <h1></h1>;
+        let negativeBarChartButton = !_.isEmpty(negativeBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,negativeBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         
         // wordCount Bar
@@ -130,9 +109,9 @@ export class SearchAnalitics extends Component{
                     }
                 }]
             }
-        }}></Bar></div> : <h1></h1>;
-        let wordCountButton = !_.isEmpty(wordCountBarData) ? <button onClick={()=>{this.props.addSavedChart(this.props.term,wordCountChart)}}>add to favs</button> :<span></span>
-        console.log(wordCountChart);
+        }}></Bar><br/></div> : <h1></h1>;
+        let wordCountButton = !_.isEmpty(wordCountBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,wordCountChart)}}>add to favs</button><br/><br/></div>:<span></span>
+       
 
         
         // score Radar
@@ -156,8 +135,9 @@ export class SearchAnalitics extends Component{
                 data: scoreSortable.map(val=>val[1]),
                 backgroundColor: 'rgba(76, 76, 178, 0.9)'
             }] } : {};
-        let scoreRadarChart = !_.isEmpty(scoreRadarData) ?<div><h3>Score Radar Distribution</h3> <Radar data={scoreRadarData} options={{}}></Radar></div> : <h1></h1>;
-        
+        let scoreRadarChart = !_.isEmpty(scoreRadarData) ?<div><h3>Score Radar Distribution</h3> <Radar data={scoreRadarData} options={{}}></Radar><br/></div> : <h1></h1>;
+        let scoreRadarChartButton = !_.isEmpty(scoreRadarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,scoreRadarChart)}}>add to favs</button><br/><br/></div> :<span></span>
+
         //score Polar Chart
         let scorePolarPosCol = scoreSortablePositive.map(()=>'rgba(32, 79, 207, 0.9)');
         let scorePolarNegCol = scoreSortableNegative.map(()=>'rgba(225, 65, 65, 0.9)');
@@ -170,7 +150,8 @@ export class SearchAnalitics extends Component{
                 data: scoreSortable.map(val=>val[1]),
                 backgroundColor: scorePolarColor
             }] } : {};
-        let scorePolarChart = !_.isEmpty(scorePolarData) ?<div><h3>Score Polar Distribution</h3> <Polar data={scorePolarData} options={{}}></Polar></div> : <h1></h1>;
+        let scorePolarChart = !_.isEmpty(scorePolarData) ?<div><h3>Score Polar Distribution</h3> <Polar data={scorePolarData} options={{}}></Polar><br/></div> : <h1></h1>;
+        let scorePolarChartButton = !_.isEmpty(scorePolarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,scorePolarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         // if(this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)){
         //     let barData = {
@@ -192,17 +173,25 @@ export class SearchAnalitics extends Component{
             <div className="container">
             <br/>
             {scoreRadarChart}
-            <br/>
+                
+                {scoreRadarChartButton}
+                
             {scorePolarChart}
-            <br/>
+                
+                {scorePolarChartButton}
+                
             {wordCountChart}
-
-            <br></br>
-            {wordCountButton}        
-            <br/>
+               
+                {wordCountButton}     
+                
             {negativeBarChart}
-            <br/>
+                
+                {negativeBarChartButton}
+                
             {postiveWordBarChart}
+                
+                {postiveWordBarChartButton}
+              
             </div>
             
         )
