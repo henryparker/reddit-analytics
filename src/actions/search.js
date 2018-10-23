@@ -1,9 +1,17 @@
-import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT} from '../action-types';
+import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART} from '../action-types';
 import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
 
 const sentiment = new Sentiment();
+
+export const addSavedChart = (term="",savedChartData) =>({
+    type: ADD_SAVED_CHART,
+    payload:{
+        term,
+        savedChartData  
+    }
+});
 
 export const changingTerm = (term="",limit=25) =>({
     type: CHANGE_TERM,

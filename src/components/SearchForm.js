@@ -30,6 +30,9 @@ export class SearchForm extends Component{
                 <Link to="/">Posts Result</Link>    
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <Link to="/analytics">Analytics page</Link>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to="/saved-analytics">Saved Analytics</Link>
+
             </form>
         )
     }

@@ -1,13 +1,35 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {changingTerm,startSearchTerm} from '../actions/search';
+import {changingTerm,startSearchTerm,addSavedChart} from '../actions/search';
 import _ from 'lodash';
 import Chart from 'chart.js';
 import {Bar, Radar, Polar} from 'react-chartjs-2';
 
 export class SearchAnalitics extends Component{
+    constructor(props){
+        super(props);
+        this.state ={addChartData:[1,2]}
+        this.handleClick = this.handleClick.bind(this);
+    }
     
-   
+    handleClick(e){
+        e.preventDefault();
+        console.log("handleClick");
+        let chartData = e.target.ele;
+        this.setState((state)=>{
+            return{addChartData: chartData }
+        })
+        console.log("term ",this.props.term);
+        console.log("addChartData ",chartData);
+        this.props.addSavedChart(this.props.term,this.state.addChartData);
+
+    }
+
+    onSubmit = (e)=>{
+        console.log("hi");
+        e.preventDefault();
+        this.props.addSavedChart(this.props.term,this.state.addChartData);
+    }
     render(){
         let positiveWords = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.positiveWords: {};
         let countPositive = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.countPositive : 0;
@@ -109,6 +131,8 @@ export class SearchAnalitics extends Component{
                 }]
             }
         }}></Bar></div> : <h1></h1>;
+        let wordCountButton = !_.isEmpty(wordCountBarData) ? <button onClick={()=>{this.props.addSavedChart(this.props.term,wordCountChart)}}>add to favs</button> :<span></span>
+        console.log(wordCountChart);
 
         
         // score Radar
@@ -172,6 +196,9 @@ export class SearchAnalitics extends Component{
             {scorePolarChart}
             <br/>
             {wordCountChart}
+
+            <br></br>
+            {wordCountButton}        
             <br/>
             {negativeBarChart}
             <br/>
@@ -183,12 +210,13 @@ export class SearchAnalitics extends Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    changingTerm: (term)=> dispatch(changingTerm(term)),
+    addSavedChart: (term,savedChartData)=> dispatch(addSavedChart(term,savedChartData)),
     startSearchTerm: (result)=> dispatch(startSearchTerm(result))
 });
 
 const mapStateToProps = (state) => {
     return {
+      term: state.input.term,
       sentiment : state.sentiment,
       combineSentiments : state.combineSentiments
     };
