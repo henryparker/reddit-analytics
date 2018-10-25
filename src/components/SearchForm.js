@@ -24,7 +24,7 @@ export class SearchForm extends Component{
         return(
             <form onSubmit={this.onSubmit}>
                 <input type="text" placeholder="SearchTerms" value={this.props.input.term} onChange={this.onTermChange}/>
-                <input type="number" placeholder="SearchLimits" value={this.props.input.limit} onChange={this.onLimitChange}/>
+                <input type="number" max="250" placeholder="SearchLimits" value={this.props.input.limit} onChange={this.onLimitChange}/>
                 <button >submit</button>
                 <br/>
                 <Link to="/">Posts Result</Link>    
@@ -32,8 +32,7 @@ export class SearchForm extends Component{
                 <Link to="/analytics">Analytics page</Link>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <Link to="/saved-analytics">Saved Analytics</Link>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to="/tmp">tmp</Link>
+
             </form>
         )
     }

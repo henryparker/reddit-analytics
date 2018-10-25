@@ -69,7 +69,7 @@ export class SearchAnalitics extends Component{
                 }]
             }
         }}></Bar><br/></div> : <h1></h1>;
-        let postiveWordBarChartButton = !_.isEmpty(positiveBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,postiveWordBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
+        let postiveWordBarChartButton = !_.isEmpty(positiveBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,postiveWordBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         // negative words Bar
         let negativeWordsSortable = sortData(negativeWords);
@@ -90,7 +90,7 @@ export class SearchAnalitics extends Component{
                 }]
             }
         }}></Bar><br/></div> : <h1></h1>;
-        let negativeBarChartButton = !_.isEmpty(negativeBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,negativeBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
+        let negativeBarChartButton = !_.isEmpty(negativeBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,negativeBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         
         // wordCount Bar
@@ -110,7 +110,7 @@ export class SearchAnalitics extends Component{
                 }]
             }
         }}></Bar><br/></div> : <h1></h1>;
-        let wordCountButton = !_.isEmpty(wordCountBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,wordCountChart)}}>add to favs</button><br/><br/></div>:<span></span>
+        let wordCountButton = !_.isEmpty(wordCountBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,wordCountChart)}}>add to favs</button><br/><br/></div>:<span></span>
        
 
         
@@ -136,7 +136,7 @@ export class SearchAnalitics extends Component{
                 backgroundColor: 'rgba(76, 76, 178, 0.9)'
             }] } : {};
         let scoreRadarChart = !_.isEmpty(scoreRadarData) ?<div><h3>Score Radar Distribution</h3> <Radar data={scoreRadarData} options={{}}></Radar><br/></div> : <h1></h1>;
-        let scoreRadarChartButton = !_.isEmpty(scoreRadarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,scoreRadarChart)}}>add to favs</button><br/><br/></div> :<span></span>
+        let scoreRadarChartButton = !_.isEmpty(scoreRadarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,scoreRadarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         //score Polar Chart
         let scorePolarPosCol = scoreSortablePositive.map(()=>'rgba(32, 79, 207, 0.9)');
@@ -151,7 +151,7 @@ export class SearchAnalitics extends Component{
                 backgroundColor: scorePolarColor
             }] } : {};
         let scorePolarChart = !_.isEmpty(scorePolarData) ?<div><h3>Score Polar Distribution</h3> <Polar data={scorePolarData} options={{}}></Polar><br/></div> : <h1></h1>;
-        let scorePolarChartButton = !_.isEmpty(scorePolarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,scorePolarChart)}}>add to favs</button><br/><br/></div> :<span></span>
+        let scorePolarChartButton = !_.isEmpty(scorePolarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,scorePolarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         // if(this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)){
         //     let barData = {
@@ -199,13 +199,14 @@ export class SearchAnalitics extends Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addSavedChart: (term,savedChartData)=> dispatch(addSavedChart(term,savedChartData)),
+    addSavedChart: (term,limit,savedChartData)=> dispatch(addSavedChart(term,limit,savedChartData)),
     startSearchTerm: (result)=> dispatch(startSearchTerm(result))
 });
 
 const mapStateToProps = (state) => {
     return {
       term: state.input.term,
+      limit: state.input.limit,
       sentiment : state.sentiment,
       combineSentiments : state.combineSentiments
     };

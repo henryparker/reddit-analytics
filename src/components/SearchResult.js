@@ -20,7 +20,7 @@ export class SearchResult extends Component{
 
         let results = this.props && this.props.result.length > 0 && this.props.sentiment.length > 0 && this.props.sentiment.length > 0?
         this.props.result.map((result,index)=> 
-        <li class="text-left list-group-item text-secondary" key={result.id}>
+        <li className="text-left list-group-item text-secondary" key={result.id}>
             <div class="media">
                 <img class="img-fluid img-thumbnail" src={result.thumbnail !== "self" && result.thumbnail !== "default" ? result.thumbnail: "https://images.unsplash.com/photo-1539553296722-f41aa0d2d184?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1ea590d8dd6c9247b9a2d2237b198d5f&auto=format&fit=crop&w=634&q=80"}></img>
                 <div class="media-body">

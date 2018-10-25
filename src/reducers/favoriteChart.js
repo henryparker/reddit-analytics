@@ -1,13 +1,20 @@
 import {ADD_SAVED_CHART} from '../action-types';
 import isEqual from 'react-fast-compare';
-
+import moment from 'moment';
+import _ from 'lodash';
 export default ( state = [] ,action)=>{
+    // let endDate = Object.prototype.hasOwnProperty.call(action,"payload") && Object.prototype.hasOwnProperty.call(action.payload,"date") ? action.payload.date.clone() : moment();
+    // endDate.add(1,'d');
+    // let diff = Object.prototype.hasOwnProperty.call(action,"payload") && Object.prototype.hasOwnProperty.call(action.payload,"date") ? action.payload.date.diff(endDate,'hours'): "not yet";
+    // console.log(diff);
+    console.log(action);
     switch(action.type){
         case ADD_SAVED_CHART:
             if(state.length === 0){
                 let term = action.payload.term;
                 let data = action.payload.savedChartData;
                 let temp ={term,
+                            limit: action.payload.limit,
                             id:action.payload.id,
                             date:action.payload.date,
                             dataSaved: [data]};
@@ -19,10 +26,11 @@ export default ( state = [] ,action)=>{
                 var index;
                 if(state.some((val)=>{return val.dataSaved.some(val1=>{return isEqual(val1,action.payload.savedChartData)})})){
                     return state
-                }else if(state.some((val,i)=>{index = i; return val.term == action.payload.term})){
+                }else if(state.some((val,i)=>{index = i; return val.term === action.payload.term && val.limit === action.payload.limit && moment().diff(val.date,'hours') < 24})){
                     let term = action.payload.term;
                     let data = action.payload.savedChartData;
                     let temp ={term,
+                        limit: action.payload.limit,
                         id:action.payload.id,
                         date:action.payload.date,
                             dataSaved: [...state[index].dataSaved,data]};
@@ -62,6 +70,7 @@ export default ( state = [] ,action)=>{
                 let data = action.payload.savedChartData;
                 let temp ={term,
                              id:action.payload.id,
+                             limit: action.payload.limit,
                              date:action.payload.date,
                             dataSaved: [data]};
                 return[

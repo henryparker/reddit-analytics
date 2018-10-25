@@ -11,7 +11,10 @@ export class IndividualSavedAnalytic extends Component{
         <div>
         <SearchForm></SearchForm>
         <br/>
-        <p className="h2">Saved data from {this.props.favoriteChartData.date.format('MMMM Do, YYYY')} for term {this.props.favoriteChartData.term}</p>
+        <p className=" text-left h1">Saved Analytics from {this.props.favoriteChartData.date.format('MMMM Do, YYYY')} </p>
+        <br/>
+        <p className="text-left h2">Term: {this.props.favoriteChartData.term}</p>
+        <p className="text-left h2">Sample#: {this.props.favoriteChartData.limit}</p>
         <br/>
         {this.props.favoriteChartData.dataSaved.map(val1=>val1)}
 

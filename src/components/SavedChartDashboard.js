@@ -12,9 +12,11 @@ export class SavedChartDashboard extends Component{
         <div className="container">
         <SearchForm></SearchForm>
         <br/>
-        <h1>This will be saved analytics</h1>
-        {/* {this.props.favoriteChartData.map(val=> val.dataSaved).map(val1=>val1)} */}  
-        {this.props.favoriteChartData.map(val=><ListOfSavedAnalytics {...val}></ListOfSavedAnalytics>)}
+        {/* {this.props.favoriteChartData.map(val=> val.dataSaved).map(val1=>val1)} */} 
+        <ul>
+        {this.props.favoriteChartData.map(val=><ListOfSavedAnalytics {...val}></ListOfSavedAnalytics>)}    
+        </ul> 
+        
         </div>
         )
     }

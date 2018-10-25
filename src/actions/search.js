@@ -8,10 +8,11 @@ const sentiment = new Sentiment();
 // let date = moment();
 
 
-export const addSavedChart = (term="",savedChartData) =>({
+export const addSavedChart = (term="",limit,savedChartData) =>({
     type: ADD_SAVED_CHART,
     payload:{
         term,
+        limit,
         date: moment(),
         id:uuidv1(), 
         savedChartData 
