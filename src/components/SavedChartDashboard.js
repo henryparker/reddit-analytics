@@ -4,13 +4,17 @@ import {changingTerm,startSearchTerm} from '../actions/search';
 
 import {Bar, Radar, Polar} from 'react-chartjs-2';
 import SearchForm from './SearchForm';
-export class SavedAnalytics extends Component{
+import ListOfSavedAnalytics from './ListOfSavedAnalytics';
+import moment from 'moment';
+export class SavedChartDashboard extends Component{
     render(){
         return (
-        <div>
-            <SearchForm></SearchForm>
-          <h1>This will be saved analytics</h1>
-          {this.props.favoriteChartData.map((val=> val.savedChartData)).map(val=>val)}
+        <div className="container">
+        <SearchForm></SearchForm>
+        <br/>
+        <h1>This will be saved analytics</h1>
+        {/* {this.props.favoriteChartData.map(val=> val.dataSaved).map(val1=>val1)} */}  
+        {this.props.favoriteChartData.map(val=><ListOfSavedAnalytics {...val}></ListOfSavedAnalytics>)}
         </div>
         )
     }
@@ -29,4 +33,4 @@ const mapStateToProps = (state) => {
     };
   };
 
-  export default connect(mapStateToProps,mapDispatchToProps)(SavedAnalytics);
+  export default connect(mapStateToProps,mapDispatchToProps)(SavedChartDashboard);

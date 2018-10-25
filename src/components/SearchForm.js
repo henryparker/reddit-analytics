@@ -7,7 +7,7 @@ export class SearchForm extends Component{
     onTermChange = (e)=>{
         const term = e.target.value;
         const limit = this.props.input.limit;
-        this.props.changingTerm(term,limit );
+        this.props.changingTerm(term,limit);
     }
 
     onLimitChange = (e)=>{
@@ -32,7 +32,8 @@ export class SearchForm extends Component{
                 <Link to="/analytics">Analytics page</Link>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <Link to="/saved-analytics">Saved Analytics</Link>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to="/tmp">tmp</Link>
             </form>
         )
     }

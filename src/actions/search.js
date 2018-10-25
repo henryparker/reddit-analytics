@@ -2,14 +2,19 @@ import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHA
 import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
-
+import moment from 'moment';
+import uuidv1 from 'uuid/v1';
 const sentiment = new Sentiment();
+// let date = moment();
+
 
 export const addSavedChart = (term="",savedChartData) =>({
     type: ADD_SAVED_CHART,
     payload:{
         term,
-        savedChartData  
+        date: moment(),
+        id:uuidv1(), 
+        savedChartData 
     }
 });
 
@@ -17,7 +22,8 @@ export const changingTerm = (term="",limit=25) =>({
     type: CHANGE_TERM,
     payload: {
         term,
-        limit}
+        limit
+    }
     
 });
 

@@ -8,6 +8,8 @@ export default ( state = [] ,action)=>{
                 let term = action.payload.term;
                 let data = action.payload.savedChartData;
                 let temp ={term,
+                            id:action.payload.id,
+                            date:action.payload.date,
                             dataSaved: [data]};
                 return[
                     ...state,
@@ -21,6 +23,8 @@ export default ( state = [] ,action)=>{
                     let term = action.payload.term;
                     let data = action.payload.savedChartData;
                     let temp ={term,
+                        id:action.payload.id,
+                        date:action.payload.date,
                             dataSaved: [...state[index].dataSaved,data]};
                     // let temp2 = {dataSaved: [...state[index].dataSaved,data]};
                     // // return state.map((val,i)=>{if(i == index){
@@ -57,9 +61,12 @@ export default ( state = [] ,action)=>{
                 let term = action.payload.term;
                 let data = action.payload.savedChartData;
                 let temp ={term,
+                             id:action.payload.id,
+                             date:action.payload.date,
                             dataSaved: [data]};
                 return[
                     ...state,
+                    
                     temp
                 ]
                 }
