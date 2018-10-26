@@ -1,4 +1,4 @@
-import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART} from '../action-types';
+import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART,REMOVE_SAVED_CHART} from '../action-types';
 import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
@@ -18,6 +18,16 @@ export const addSavedChart = (term="",limit,savedChartData) =>({
         savedChartData 
     }
 });
+
+export const removeSavedChart = (id)=>({
+    type: REMOVE_SAVED_CHART,
+    id
+});
+
+export const startRemoveSavedChart = (id)=>{
+    return (dispatch, getState) => {
+        dispatch(removeSavedChart( id ));
+}};
 
 export const changingTerm = (term="",limit=25) =>({
     type: CHANGE_TERM,

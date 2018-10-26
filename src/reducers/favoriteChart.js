@@ -1,4 +1,4 @@
-import {ADD_SAVED_CHART} from '../action-types';
+import {ADD_SAVED_CHART,REMOVE_SAVED_CHART} from '../action-types';
 import isEqual from 'react-fast-compare';
 import moment from 'moment';
 import _ from 'lodash';
@@ -8,8 +8,13 @@ export default ( state = [] ,action)=>{
     // let diff = Object.prototype.hasOwnProperty.call(action,"payload") && Object.prototype.hasOwnProperty.call(action.payload,"date") ? action.payload.date.diff(endDate,'hours'): "not yet";
     // console.log(diff);
     console.log(action);
-    switch(action.type){
+    switch (action.type){
+        case REMOVE_SAVED_CHART:
+            return state.filter( (val) => val.id !== action.id);
+        
+        
         case ADD_SAVED_CHART:
+        console.log("start");
             if(state.length === 0){
                 let term = action.payload.term;
                 let data = action.payload.savedChartData;
@@ -79,7 +84,8 @@ export default ( state = [] ,action)=>{
                     temp
                 ]
                 }
-            }
+            };
+
         default:
             return state;
     }

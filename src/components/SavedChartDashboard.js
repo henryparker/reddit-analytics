@@ -14,7 +14,7 @@ export class SavedChartDashboard extends Component{
         <br/>
         {/* {this.props.favoriteChartData.map(val=> val.dataSaved).map(val1=>val1)} */} 
         <ul>
-        {this.props.favoriteChartData.map(val=><ListOfSavedAnalytics {...val}></ListOfSavedAnalytics>)}    
+        {this.props.favoriteChartData.map(val=><ListOfSavedAnalytics key={val.id} {...val}></ListOfSavedAnalytics>)}    
         </ul> 
         
         </div>
