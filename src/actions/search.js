@@ -1,23 +1,52 @@
-import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART,REMOVE_SAVED_CHART} from '../action-types';
+import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART,REMOVE_SAVED_CHART,SET_SAVED_CHART} from '../action-types';
 import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
 import moment from 'moment';
 import uuidv1 from 'uuid/v1';
+import database from '../firebase/firebase';
 const sentiment = new Sentiment();
 // let date = moment();
 
+export const setSavedChart = (data={})=>({
+    type: SET_SAVED_CHART,
+    data
+})
+export const startSetSavedChart =()=>{
+    return(dispatch)=>{
+        return database.ref('favoriteChartData').once('value').then((snapshot)=>{
+            const data = [];
+            snapshot.forEach((childSnapshot)=>{
+                data.push({
+                    ...childSnapshot.val()
+                });
+            });
+            dispatch(setSavedChart(data));
+        });
+    };
+};
 
 export const addSavedChart = (term="",limit,savedChartData) =>({
     type: ADD_SAVED_CHART,
     payload:{
         term,
         limit,
-        date: moment(),
+        date: moment().format("YYYY-MM-DD HH:mm"),
         id:uuidv1(), 
         savedChartData 
     }
 });
+
+export const startAddSavedChart = (term="",limit,savedChartData) =>{
+    return (dispatch,getState)=>{
+        const uid = getState().auth.uid;
+        const favoriteChartData ={term,limit,savedChartData};
+
+        return database.ref(`users/${uid}/favoriteChartData`).push(favoriteChartData)
+    }
+    
+};
+
 
 export const removeSavedChart = (id)=>({
     type: REMOVE_SAVED_CHART,
@@ -25,7 +54,7 @@ export const removeSavedChart = (id)=>({
 });
 
 export const startRemoveSavedChart = (id)=>{
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(removeSavedChart( id ));
 }};
 

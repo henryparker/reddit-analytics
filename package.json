@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "chart.js": "^2.7.3",
+    "firebase": "^4.2.0",
+    "json-stringify-safe": "^5.0.1",
     "luxon": "^1.4.4",
     "moment": "^2.22.2",
     "react": "^16.5.2",

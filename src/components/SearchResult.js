@@ -18,7 +18,7 @@ export class SearchResult extends Component{
         // </div>) : 
         // <p>no analytics</p>;
 
-        let results = this.props && this.props.result.length > 0 && this.props.sentiment.length > 0 && this.props.sentiment.length > 0?
+        let results = this.props && this.props.result.length > 0 && this.props.sentiment.length >= this.props.result.length ?
         this.props.result.map((result,index)=> 
         <li className="text-left list-group-item text-secondary" key={result.id}>
             <div class="media">
@@ -27,7 +27,7 @@ export class SearchResult extends Component{
                     <h3 class="mt-0"><a href={`http://reddit.com${result.permalink}` } target="_blank">{index} {result.title}</a></h3>
                     <br></br>
                     <p>{result.selftext}</p>
-                    <h4>score : {this.props.sentiment[index].score}</h4>
+                    <h4>score : {this.props.sentiment[index].score !== null ? this.props.sentiment[index].score : "none" }</h4>
                     <br/>
                     <h4>negative : {this.props.sentiment[index].negative.length > 0 ? _.join(this.props.sentiment[index].negative, ', ') : <p>none</p> }</h4>
                     <br></br>
@@ -53,6 +53,7 @@ export class SearchResult extends Component{
 
 const mapStateToProps = (state) => {
     return {
+      limit: state.input.limit,
       result: state.searchResult,
       sentiment : state.sentiment
     };

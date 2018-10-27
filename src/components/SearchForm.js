@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {changingTerm,startSearchTerm} from '../actions/search';
+import {changingTerm,startSearchTerm, combineSentiment,addSavedChart} from '../actions/search';
+import _ from 'lodash';
 export class SearchForm extends Component{
 
     onTermChange = (e)=>{
@@ -18,14 +19,18 @@ export class SearchForm extends Component{
 
     onSubmit = (e)=>{
         e.preventDefault();
-        this.props.startSearchTerm();
+        // this.props.startSearchTerm();
     }
     render(){
+        let buttonFavs = !_.isEmpty(this.props.combineSentiments) ? <button onClick={()=>{this.props.addSavedChart(this.props.input.term,this.props.input.limit,this.props.combineSentiments)}}>save</button> :<span></span>
+
+        
         return(
             <form onSubmit={this.onSubmit}>
                 <input type="text" placeholder="SearchTerms" value={this.props.input.term} onChange={this.onTermChange}/>
                 <input type="number" max="250" placeholder="SearchLimits" value={this.props.input.limit} onChange={this.onLimitChange}/>
-                <button >submit</button>
+                <button onClick={()=>this.props.startSearchTerm()} >submit</button>
+                {buttonFavs}
                 <br/>
                 <Link to="/">Posts Result</Link>    
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -40,13 +45,16 @@ export class SearchForm extends Component{
 
 const mapDispatchToProps = (dispatch) => ({
     changingTerm: (term,limit)=> dispatch(changingTerm(term,limit)),
-    startSearchTerm: ()=> dispatch(startSearchTerm())
+    startSearchTerm: ()=> dispatch(startSearchTerm()),
+    addSavedChart: (term,limit,savedChartData)=> dispatch(addSavedChart(term,limit,savedChartData)),
+
 });
 
 const mapStateToProps = (state) => {
     return {
       input: state.input,
-      result: state.result
+      result: state.result,
+      combineSentiments: state.combineSentiments
     };
   };
 

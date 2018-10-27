@@ -9,7 +9,7 @@ class ListOfSavedAnalytics extends Component{
       return(
   <li key={this.props.id} className="text-left list-group-item text-secondary">
   <Link className="list-item" to={`/saved-analytics/${this.props.id}`}>
-      {this.props.date.format('MMMM Do, YYYY')}
+      {this.props.date}
       &nbsp;&nbsp;&nbsp;&nbsp;
       Term: {this.props.term}
       &nbsp;&nbsp;&nbsp;&nbsp;
