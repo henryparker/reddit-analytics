@@ -1,7 +1,7 @@
 //typing Reducer
 import {CHANGE_TERM} from '../action-types'
 const term = "";
-const limit = 25 ;
+const limit = 250 ;
 const date = {};
 const id = {};
 export default ( state = {term,limit,date,id},action)=>{

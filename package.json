@@ -21,6 +21,8 @@
     "redux-thunk": "^2.3.0",
     "sentiment": "^5.0.1",
     "snoowrap": "^1.15.2",
+    "sweetalert": "^2.1.1",
+    "toastr": "^2.1.4",
     "uid": "0.0.2",
     "uuid": "^3.3.2"
   },

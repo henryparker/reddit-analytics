@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {changingTerm,startSearchTerm,startAddSavedChart} from '../actions/search';
 import {startLogout} from '../actions/auth';
+import swal from 'sweetalert';
 import { startLogin } from '../actions/auth';
 import _ from 'lodash';
 export class SearchForm extends Component{
@@ -29,7 +30,11 @@ export class SearchForm extends Component{
             if(this.props.isAuthenticated){
               this.props.startAddSavedChart(this.props.input.term,this.props.input.limit,this.props.combineSentiments);  
             }else{
-                alert("please sign in first");
+                // alert("please sign in first");
+                swal({
+                    title: "Please Sign in First",
+                    icon: "warning",
+                  });
             }
             
             }}>save</button> :<span></span>
@@ -50,7 +55,12 @@ export class SearchForm extends Component{
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <NavLink onClick={()=>{
             if(!this.props.isAuthenticated){
-                alert("please sign in first");
+                // alert("please sign in first");
+                swal({
+                    title: "Please Sign in First",
+                    icon: "warning",
+                  });
+
             }
             }}to="/saved-analytics">Saved Analytics</NavLink>
                 
