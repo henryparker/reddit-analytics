@@ -16,7 +16,7 @@ export const setSavedChart = (data={})=>({
 export const startSetSavedChart =()=>{
     return(dispatch,getState)=>{
         const uid = getState().auth.uid;
-        return database.ref(`${uid}/favoriteChartData`).once('value').then((snapshot)=>{
+        return database.ref(`users/${uid}/favoriteChartData`).once('value').then((snapshot)=>{
             const data = [];
             snapshot.forEach((childSnapshot)=>{
                 data.push({
@@ -48,7 +48,7 @@ export const startAddSavedChart = (term="",limit,dataSaved) =>{
         const date = moment().format("YYYY-MM-DD HH:mm");
         const payload ={term,limit,dataSaved,date};
         if(state.length === 0){
-            return database.ref(`${uid}/favoriteChartData`).push(payload).then((ref)=>{
+            return database.ref(`users/${uid}/favoriteChartData`).push(payload).then((ref)=>{
                 dispatch(addSavedChart({
                   id : ref.key,
                   ...payload
@@ -61,7 +61,7 @@ export const startAddSavedChart = (term="",limit,dataSaved) =>{
             moment().diff(moment(val.date,"YYYY-MM-DD HH:mm"),'hours') < 24})){
 
         }else{
-            return database.ref(`${uid}/favoriteChartData`).push(payload).then((ref)=>{
+            return database.ref(`users/${uid}/favoriteChartData`).push(payload).then((ref)=>{
                 dispatch(addSavedChart({
                   id : ref.key,
                   ...payload
@@ -83,7 +83,7 @@ export const removeSavedChart = (id)=>({
 export const startRemoveSavedChart = (id)=>{
     return (dispatch,getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`${uid}/favoriteChartData/${id}`).remove().then(()=>{
+        return database.ref(`users/${uid}/favoriteChartData/${id}`).remove().then(()=>{
            dispatch(removeSavedChart( id )); 
         })
         

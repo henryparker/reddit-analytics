@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {changingTerm,startSearchTerm,startAddSavedChart} from '../actions/search';
 import {startLogout} from '../actions/auth';
+import { startLogin } from '../actions/auth';
 import _ from 'lodash';
 export class SearchForm extends Component{
 
@@ -24,24 +25,34 @@ export class SearchForm extends Component{
         // this.props.startSearchTerm();
     }
     render(){
-        let buttonFavs = !_.isEmpty(this.props.combineSentiments) ? <button className="btn btn-success btn-lg m-1" onClick={()=>{
-            this.props.startAddSavedChart(this.props.input.term,this.props.input.limit,this.props.combineSentiments);
+        let buttonFavs =  !_.isEmpty(this.props.combineSentiments) ? <button className="btn btn-info btn-lg m-1" onClick={()=>{
+            if(this.props.isAuthenticated){
+              this.props.startAddSavedChart(this.props.input.term,this.props.input.limit,this.props.combineSentiments);  
+            }else{
+                alert("please sign in first");
+            }
+            
             }}>save</button> :<span></span>
 
-        
+        let loginLogoutButton = this.props.isAuthenticated ?  <button className="btn btn-danger btn-lg m-1" onClick={startLogout()}>Logout</button> : 
+        <button className="btn btn-success btn-lg m-1" onClick={startLogin()}>Login</button>
         return(
             <form onSubmit={this.onSubmit}>
                 <input type="text" placeholder="SearchTerms" value={this.props.input.term} onChange={this.onTermChange}/>
                 <input type="number" max="250" placeholder="SearchLimits" value={this.props.input.limit} onChange={this.onLimitChange}/>
                 <button className="btn btn-primary btn-lg m-1" onClick={()=>{this.props.startSearchTerm(); this.props.history.push('/analytics')}} >submit</button>
+                {loginLogoutButton}
                 {buttonFavs}
-                <button className="btn btn-danger btn-lg m-1" onClick={startLogout()}>Logout</button>
                 <br/>
-                <NavLink to="/dashboard">Posts Result</NavLink>    
+                <NavLink to="/">Posts Result</NavLink>    
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <NavLink to="/analytics">Analytics page</NavLink>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <NavLink to="/saved-analytics">Saved Analytics</NavLink>
+                <NavLink onClick={()=>{
+            if(!this.props.isAuthenticated){
+                alert("please sign in first");
+            }
+            }}to="/saved-analytics">Saved Analytics</NavLink>
                 
             </form>
         )
@@ -52,14 +63,17 @@ const mapDispatchToProps = (dispatch) => ({
     changingTerm: (term,limit)=> dispatch(changingTerm(term,limit)),
     startSearchTerm: ()=> dispatch(startSearchTerm()),
     startAddSavedChart: (term,limit,dataSaved)=> dispatch(startAddSavedChart(term,limit,dataSaved)),
-    startLogout: ()=> dispatch(startLogout())
+    startLogout: ()=> dispatch(startLogout()),
+    startLogin: () => dispatch(startLogin())
 });
 
 const mapStateToProps = (state) => {
     return {
       input: state.input,
       result: state.result,
-      combineSentiments: state.combineSentiments
+      combineSentiments: state.combineSentiments,
+      isAuthenticated: !!state.auth.uid
+
     };
   };
 
