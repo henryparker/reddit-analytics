@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.2",
     "chart.js": "^2.7.3",
     "firebase": "^4.2.0",
     "json-stringify-safe": "^5.0.1",

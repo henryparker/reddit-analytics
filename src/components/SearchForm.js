@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {changingTerm,startSearchTerm, combineSentiment,addSavedChart} from '../actions/search';
+import {changingTerm,startSearchTerm, combineSentiment,addSavedChart,startAddSavedChart} from '../actions/search';
 import _ from 'lodash';
 export class SearchForm extends Component{
 
@@ -22,7 +22,7 @@ export class SearchForm extends Component{
         // this.props.startSearchTerm();
     }
     render(){
-        let buttonFavs = !_.isEmpty(this.props.combineSentiments) ? <button onClick={()=>{this.props.addSavedChart(this.props.input.term,this.props.input.limit,this.props.combineSentiments)}}>save</button> :<span></span>
+        let buttonFavs = !_.isEmpty(this.props.combineSentiments) ? <button onClick={()=>{this.props.startAddSavedChart(this.props.input.term,this.props.input.limit,this.props.combineSentiments)}}>save</button> :<span></span>
 
         
         return(
@@ -46,7 +46,7 @@ export class SearchForm extends Component{
 const mapDispatchToProps = (dispatch) => ({
     changingTerm: (term,limit)=> dispatch(changingTerm(term,limit)),
     startSearchTerm: ()=> dispatch(startSearchTerm()),
-    addSavedChart: (term,limit,savedChartData)=> dispatch(addSavedChart(term,limit,savedChartData)),
+    startAddSavedChart: (term,limit,dataSaved)=> dispatch(startAddSavedChart(term,limit,dataSaved)),
 
 });
 

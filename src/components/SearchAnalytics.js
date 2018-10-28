@@ -198,7 +198,7 @@ export class SearchAnalitics extends Component{
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addSavedChart: (term,limit,savedChartData)=> dispatch(addSavedChart(term,limit,savedChartData)),
+    addSavedChart: (payload)=> dispatch(addSavedChart(payload)),
     startSearchTerm: (result)=> dispatch(startSearchTerm(result))
 });
 

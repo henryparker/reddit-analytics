@@ -3,6 +3,7 @@ import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
 import moment from 'moment';
+import isEqual from 'react-fast-compare';
 import uuidv1 from 'uuid/v1';
 import database from '../firebase/firebase';
 const sentiment = new Sentiment();
@@ -18,6 +19,7 @@ export const startSetSavedChart =()=>{
             const data = [];
             snapshot.forEach((childSnapshot)=>{
                 data.push({
+                    id:childSnapshot.key,
                     ...childSnapshot.val()
                 });
             });
@@ -26,23 +28,46 @@ export const startSetSavedChart =()=>{
     };
 };
 
-export const addSavedChart = (term="",limit,savedChartData) =>({
+export const addSavedChart = (payload={}) =>({
     type: ADD_SAVED_CHART,
-    payload:{
-        term,
-        limit,
-        date: moment().format("YYYY-MM-DD HH:mm"),
-        id:uuidv1(), 
-        savedChartData 
-    }
+    payload
+    // payload:{
+    //     term,
+    //     limit,
+    //     date: moment().format("YYYY-MM-DD HH:mm"),
+    //     // id:uuidv1(), 
+    //     dataSaved 
+    // }
 });
 
-export const startAddSavedChart = (term="",limit,savedChartData) =>{
+export const startAddSavedChart = (term="",limit,dataSaved) =>{
     return (dispatch,getState)=>{
-        const uid = getState().auth.uid;
-        const favoriteChartData ={term,limit,savedChartData};
+        const state = getState().favoriteChartData;
+        const date = moment().format("YYYY-MM-DD HH:mm");
+        const payload ={term,limit,dataSaved,date};
+        if(state.length === 0){
+            return database.ref('favoriteChartData').push(payload).then((ref)=>{
+                dispatch(addSavedChart({
+                  id : ref.key,
+                  ...payload
+                }))
+                
+            })
+        }else if(state.some((val)=>{return isEqual(val.dataSaved,payload.dataSaved)}) || 
+        state.some((val)=>{ return val.term === payload.term && 
+            val.limit === payload.limit && 
+            moment().diff(moment(val.date,"YYYY-MM-DD HH:mm"),'hours') < 24})){
 
-        return database.ref(`users/${uid}/favoriteChartData`).push(favoriteChartData)
+        }else{
+            return database.ref('favoriteChartData').push(payload).then((ref)=>{
+                dispatch(addSavedChart({
+                  id : ref.key,
+                  ...payload
+                }))
+                
+            })
+        }
+        
     }
     
 };
@@ -55,7 +80,10 @@ export const removeSavedChart = (id)=>({
 
 export const startRemoveSavedChart = (id)=>{
     return (dispatch) => {
-        dispatch(removeSavedChart( id ));
+        return database.ref(`favoriteChartData/${id}`).remove().then(()=>{
+           dispatch(removeSavedChart( id )); 
+        })
+        
 }};
 
 export const changingTerm = (term="",limit=25) =>({
