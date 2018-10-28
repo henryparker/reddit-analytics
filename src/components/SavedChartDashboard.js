@@ -9,8 +9,8 @@ import moment from 'moment';
 export class SavedChartDashboard extends Component{
     render(){
         return (
-        <div className="container">
-        <SearchForm></SearchForm>
+        <div>
+        
         <br/>
         {/* {this.props.favoriteChartData.map(val=> val.dataSaved).map(val1=>val1)} */} 
         <ul>

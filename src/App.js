@@ -8,7 +8,7 @@ import moment from 'moment';
 import SearchDashboard from './components/SearchDashboard';
 import configureStore from './store/configureStore';
 import {store} from './index';
-import AppRouter from './routers/AppRouter';
+import AppRouter,{history} from './routers/AppRouter';
 import {r} from './reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 const sentiment = new Sentiment();

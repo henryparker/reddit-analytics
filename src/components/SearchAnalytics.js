@@ -68,7 +68,7 @@ export class SearchAnalitics extends Component{
                     }
                 }]
             }
-        }}></Bar><br/></div> : <h1></h1>;
+        }}></Bar><br/></div> : <h1>no result</h1>;
         // let postiveWordBarChartButton = !_.isEmpty(positiveBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,postiveWordBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         // negative words Bar

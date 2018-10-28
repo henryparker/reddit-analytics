@@ -20,7 +20,7 @@ class ListOfSavedAnalytics extends Component{
       <span className="list-item__sub-title">{term}</span> */}
   </Link>
   {console.log(this.props.id)}
-  <button onClick={()=>this.props.startRemoveSavedChart(this.props.id)}>Remove</button>
+  <button className="btn btn-danger btn-lg" onClick={()=>this.props.startRemoveSavedChart(this.props.id)}>Remove</button>
   </li>
             )
       } 

@@ -21,10 +21,10 @@ export class SearchResult extends Component{
         let results = this.props && this.props.result.length > 0 && this.props.sentiment.length >= this.props.result.length ?
         this.props.result.map((result,index)=> 
         <li className="text-left list-group-item text-secondary" key={result.id}>
-            <div class="media">
-                <img class="img-fluid img-thumbnail" src={result.thumbnail !== "self" && result.thumbnail !== "default" ? result.thumbnail: "https://images.unsplash.com/photo-1539553296722-f41aa0d2d184?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1ea590d8dd6c9247b9a2d2237b198d5f&auto=format&fit=crop&w=634&q=80"}></img>
-                <div class="media-body">
-                    <h3 class="mt-0"><a href={`http://reddit.com${result.permalink}` } target="_blank">{index} {result.title}</a></h3>
+            <div className="media">
+                <img className="img-fluid img-thumbnail" src={result.thumbnail !== "self" && result.thumbnail !== "default" ? result.thumbnail: "https://images.unsplash.com/photo-1539553296722-f41aa0d2d184?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1ea590d8dd6c9247b9a2d2237b198d5f&auto=format&fit=crop&w=634&q=80"}></img>
+                <div className="media-body">
+                    <h3 className="mt-0"><a href={`http://reddit.com${result.permalink}` } target="_blank">{index} {result.title}</a></h3>
                     <br></br>
                     <p>{result.selftext}</p>
                     <h4>score : {this.props.sentiment[index].score !== null ? this.props.sentiment[index].score : "none" }</h4>
@@ -39,8 +39,8 @@ export class SearchResult extends Component{
         <p>no result</p>;
         console.log(this.props.result);
         return(
-            <div class="container-fluid">
-                <ul class="list-group">
+            <div className="container-fluid">
+                <ul className="list-group">
                     {results}
                     
                 </ul>

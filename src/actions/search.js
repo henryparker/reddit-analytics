@@ -14,8 +14,9 @@ export const setSavedChart = (data={})=>({
     data
 })
 export const startSetSavedChart =()=>{
-    return(dispatch)=>{
-        return database.ref('favoriteChartData').once('value').then((snapshot)=>{
+    return(dispatch,getState)=>{
+        const uid = getState().auth.uid;
+        return database.ref(`${uid}/favoriteChartData`).once('value').then((snapshot)=>{
             const data = [];
             snapshot.forEach((childSnapshot)=>{
                 data.push({
@@ -42,11 +43,12 @@ export const addSavedChart = (payload={}) =>({
 
 export const startAddSavedChart = (term="",limit,dataSaved) =>{
     return (dispatch,getState)=>{
+        const uid = getState().auth.uid;
         const state = getState().favoriteChartData;
         const date = moment().format("YYYY-MM-DD HH:mm");
         const payload ={term,limit,dataSaved,date};
         if(state.length === 0){
-            return database.ref('favoriteChartData').push(payload).then((ref)=>{
+            return database.ref(`${uid}/favoriteChartData`).push(payload).then((ref)=>{
                 dispatch(addSavedChart({
                   id : ref.key,
                   ...payload
@@ -59,7 +61,7 @@ export const startAddSavedChart = (term="",limit,dataSaved) =>{
             moment().diff(moment(val.date,"YYYY-MM-DD HH:mm"),'hours') < 24})){
 
         }else{
-            return database.ref('favoriteChartData').push(payload).then((ref)=>{
+            return database.ref(`${uid}/favoriteChartData`).push(payload).then((ref)=>{
                 dispatch(addSavedChart({
                   id : ref.key,
                   ...payload
@@ -79,8 +81,9 @@ export const removeSavedChart = (id)=>({
 });
 
 export const startRemoveSavedChart = (id)=>{
-    return (dispatch) => {
-        return database.ref(`favoriteChartData/${id}`).remove().then(()=>{
+    return (dispatch,getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`${uid}/favoriteChartData/${id}`).remove().then(()=>{
            dispatch(removeSavedChart( id )); 
         })
         

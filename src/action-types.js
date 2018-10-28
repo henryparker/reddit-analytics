@@ -5,3 +5,5 @@ export const COMBINE_SENTIMENT = "COMBINE_SENTIMENT";
 export const ADD_SAVED_CHART = "ADD_SAVED_CHART";
 export const REMOVE_SAVED_CHART = "REMOVE_SAVED_CHART";
 export const SET_SAVED_CHART = "SET_SAVED_CHART";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
