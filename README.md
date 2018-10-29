@@ -2,6 +2,7 @@
 
 This app measure sentiment of selected words on Reddit.
 <h4>url: https://reddit-analysis-app1.herokuapp.com/</h4>
+<p>if error, please refresh and wait around 15 to 30s, heroku server is probably starting</p>
 <h1>Motivation:</h1>
 
 I really like reddit and thought it would be cool to know the sentiments of search results.
