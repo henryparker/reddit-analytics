@@ -140,7 +140,6 @@ export class IndividualSavedAnalytic extends Component{
 
         return (
         <div>
-        <SearchForm></SearchForm>
         <br/>
         <p className=" text-left h1">Saved Analytics from {this.props.favoriteChartData.date} </p>
         <br/>
