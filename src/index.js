@@ -8,6 +8,7 @@ import configureStore from './store/configureStore';
 import * as serviceWorker from './serviceWorker';
 import {startSetSavedChart} from './actions/search';
 import {login,logout} from './actions/auth';
+// require('dotenv').config();
 export const store = configureStore();
 const print = ()=>{
   console.log("%c Rendered with 👉 👉👇", "background: purple; color: #FFF");
