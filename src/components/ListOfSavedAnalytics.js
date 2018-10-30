@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import {startRemoveSavedChart} from '../actions/search';
 
 class ListOfSavedAnalytics extends Component{
@@ -19,7 +18,6 @@ class ListOfSavedAnalytics extends Component{
       {/* <h3 className="list-item__title">{date.format('MMMM Do, YYYY')}</h3>
       <span className="list-item__sub-title">{term}</span> */}
   </Link>
-  {console.log(this.props.id)}
   <button className="btn btn-danger btn-lg" onClick={()=>this.props.startRemoveSavedChart(this.props.id)}>Remove</button>
   </li>
             )

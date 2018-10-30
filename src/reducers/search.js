@@ -1,4 +1,4 @@
-import {SEARCH_TERM, SEARCH_SENTIMENT} from '../action-types'
+import {SEARCH_TERM} from '../action-types'
 
 export default ( state = {} ,action)=>{
     switch(action.type){

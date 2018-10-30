@@ -4,10 +4,8 @@ import Sentiment from 'sentiment';
 import _ from 'lodash';
 import moment from 'moment';
 import isEqual from 'react-fast-compare';
-import uuidv1 from 'uuid/v1';
 import database from '../firebase/firebase';
 const sentiment = new Sentiment();
-// let date = moment();
 
 export const setSavedChart = (data={})=>({
     type: SET_SAVED_CHART,
@@ -116,8 +114,6 @@ export const startSearchTerm = ()=>{
     return (dispatch,getState)=> {
         let term = getState().input.term;
         const inputLimit = getState().input.limit;
-
-        console.log(inputLimit);
         r.search({
             query: term,
             limit: inputLimit

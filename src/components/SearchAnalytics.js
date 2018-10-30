@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {changingTerm,startSearchTerm,addSavedChart} from '../actions/search';
+import {startSearchTerm,addSavedChart} from '../actions/search';
 import _ from 'lodash';
-import Chart from 'chart.js';
 import {Bar, Radar, Polar} from 'react-chartjs-2';
 
 export class SearchAnalitics extends Component{
@@ -125,7 +124,6 @@ export class SearchAnalitics extends Component{
         let scoreSortableNegative = scoreSortable.filter(val => val[0]<0 );
         scoreSortableNegative = scoreSortableNegative.sort((a,b)=>a[0]-b[0]);
         scoreSortable = scoreSortablePositive.concat(scoreSortableNegative);
-        console.log(scoreSortable);
         // console.log(scoreLabel);
         // console.log(scoreData);
         let scoreRadarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
@@ -142,7 +140,6 @@ export class SearchAnalitics extends Component{
         let scorePolarPosCol = scoreSortablePositive.map(()=>'rgba(32, 79, 207, 0.9)');
         let scorePolarNegCol = scoreSortableNegative.map(()=>'rgba(225, 65, 65, 0.9)');
         let scorePolarColor = scorePolarPosCol.concat(scorePolarNegCol);
-        console.log(scorePolarColor)
         let scorePolarData = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments) ?  {
             labels: scoreSortable.map(val=>val[0]),
             datasets: [{

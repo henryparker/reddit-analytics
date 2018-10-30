@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {changingTerm,startSearchTerm} from '../actions/search';
-
-import {Bar, Radar, Polar} from 'react-chartjs-2';
-import SearchForm from './SearchForm';
 import ListOfSavedAnalytics from './ListOfSavedAnalytics';
-import moment from 'moment';
 export class SavedChartDashboard extends Component{
     render(){
         return (

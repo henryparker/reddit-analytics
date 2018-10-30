@@ -2,12 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {changingTerm,startSearchTerm} from '../actions/search';
 import {Bar, Radar, Polar} from 'react-chartjs-2';
-import SearchForm from './SearchForm';
 import _ from 'lodash';
 export class IndividualSavedAnalytic extends Component{
     render(){ 
-        console.log("individual",this.props.favoriteChartData);
-
         let positiveWords = this.props.favoriteChartData.dataSaved.positiveWords;
         let countPositive = this.props.favoriteChartData.dataSaved.countPositive;
         let negativeWords = this.props.favoriteChartData.dataSaved.negativeWords;

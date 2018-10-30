@@ -1,17 +1,10 @@
-import database from '../firebase/firebase';
 import {ADD_SAVED_CHART,REMOVE_SAVED_CHART,SET_SAVED_CHART} from '../action-types';
-import isEqual from 'react-fast-compare';
-import moment from 'moment';
-import _ from 'lodash';
-import stringify from 'json-stringify-safe'
-import * as Promise from 'bluebird';
 export default ( state = [] ,action)=>{
     // let endDate = Object.prototype.hasOwnProperty.call(action,"payload") && Object.prototype.hasOwnProperty.call(action.payload,"date") ? action.payload.date.clone() : moment();
     // endDate.add(1,'d');
     // let diff = Object.prototype.hasOwnProperty.call(action,"payload") && Object.prototype.hasOwnProperty.call(action.payload,"date") ? action.payload.date.diff(endDate,'hours'): "not yet";
     // console.log(diff);
 
-    console.log(action);
     switch (action.type){
         case SET_SAVED_CHART:
             return action.data;
