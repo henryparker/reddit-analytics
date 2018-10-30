@@ -1,7 +1,20 @@
-measure sentiment of selected words on Reddit.
+![oops image is not showing](https://media.giphy.com/media/1gO8pHADYHUC8nlhNS/giphy.gif)
 
-Framework: React,Redux
+This app measure sentiment of selected words on Reddit.
+<h4>url: https://reddit-analysis-app1.herokuapp.com/</h4>
+<p>if error, please refresh and wait around 15 to 30s, heroku server is probably starting</p>
+<h1>Motivation:</h1>
 
-Runtime-server: Node.JS
+I really like reddit and thought it would be cool to know the sentiments of search results.
 
-BackEnd: Firebase
+<br/>
+<h1>Frameworks:</h1> 
+<ul>
+<li><h3>FrontEnd: React , Redux</h3></li>
+
+<li><h3>Runtime-server: Node.JS</h3></li>
+
+<li><h3>BackEnd: Firebase</h3></li>
+</ul>
+
+
