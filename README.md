@@ -1,7 +1,7 @@
 ![oops image is not showing](https://media.giphy.com/media/1gO8pHADYHUC8nlhNS/giphy.gif)
 
 This app measure sentiment of selected words on Reddit.
-<h4>url: https://reddit-analytics-1.netlify.com/</h4>
+<h4>url: https://feelreddit.com/ or https://reddit-analytics-1.netlify.com/</h4>
 <p>if error, please wait around 15 to 30s and refresh, netlify server is probably starting</p>
 <h1>Motivation:</h1>
 
