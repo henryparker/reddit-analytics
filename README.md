@@ -1,4 +1,4 @@
-![oops image is not showing](https://s2.gifyu.com/images/ezgif.com-gif-maker-1.gif)
+![oops image is not showing](https://media.giphy.com/media/51XWAg1UcTaK1gYNFB/giphy.gif)
 
 This app measure sentiment of selected words on Reddit.
 <h4>url: https://feelreddit.com/ or https://reddit-analytics-1.netlify.com/</h4>
