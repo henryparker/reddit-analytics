@@ -7,3 +7,4 @@ export const REMOVE_SAVED_CHART = "REMOVE_SAVED_CHART";
 export const SET_SAVED_CHART = "SET_SAVED_CHART";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const CHANGE_LOADING = "CHANGE_LOADING";

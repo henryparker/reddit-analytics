@@ -4,9 +4,14 @@ import {startSearchTerm,addSavedChart} from '../actions/search';
 import _ from 'lodash';
 import {Bar, Radar, Polar} from 'react-chartjs-2';
 
-export class SearchAnalitics extends Component{
 
+export class SearchAnalitics extends Component{
+    
     render(){
+        
+        var Loader = require('react-loader');
+
+
         let positiveWords = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.positiveWords: {};
         let countPositive = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)  ? this.props.combineSentiments.countPositive : 0;
         let negativeWords = this.props && this.props.sentiment.length > 0 && !_.isEmpty(this.props.combineSentiments)   ? this.props.combineSentiments.negativeWords: {};
@@ -67,7 +72,7 @@ export class SearchAnalitics extends Component{
                     }
                 }]
             }
-        }}></Bar><br/></div> : <h1>no result</h1>;
+        }}></Bar><br/></div> : <h1 id='loading'></h1>;
         // let postiveWordBarChartButton = !_.isEmpty(positiveBarData) ? <div><button onClick={()=>{this.props.addSavedChart(this.props.term,this.props.limit,postiveWordBarChart)}}>add to favs</button><br/><br/></div> :<span></span>
 
         // negative words Bar
@@ -169,6 +174,8 @@ export class SearchAnalitics extends Component{
         return(
             <div className="container">
             <br/>
+            <Loader loaded={this.props.loading}>
+            
             {scoreRadarChart}
         
                 {/* {scoreRadarChartButton} */}
@@ -188,7 +195,7 @@ export class SearchAnalitics extends Component{
             {postiveWordBarChart}
                 
                 {/* {postiveWordBarChartButton} */}
-              
+             </Loader>
             </div>
         )
     }
@@ -197,6 +204,7 @@ export class SearchAnalitics extends Component{
 const mapDispatchToProps = (dispatch) => ({
     addSavedChart: (payload)=> dispatch(addSavedChart(payload)),
     startSearchTerm: (result)=> dispatch(startSearchTerm(result))
+
 });
 
 const mapStateToProps = (state) => {
@@ -204,7 +212,8 @@ const mapStateToProps = (state) => {
       term: state.input.term,
       limit: state.input.limit,
       sentiment : state.sentiment,
-      combineSentiments : state.combineSentiments
+      combineSentiments : state.combineSentiments,
+      loading: state.loading
     };
   };
 

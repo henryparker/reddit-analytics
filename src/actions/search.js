@@ -1,4 +1,4 @@
-import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART,REMOVE_SAVED_CHART,SET_SAVED_CHART} from '../action-types';
+import {SEARCH_TERM,CHANGE_TERM,SEARCH_SENTIMENT,COMBINE_SENTIMENT,ADD_SAVED_CHART,REMOVE_SAVED_CHART,SET_SAVED_CHART,CHANGE_LOADING} from '../action-types';
 import {r} from '../reddit-auth/reddit-auth';
 import Sentiment from 'sentiment';
 import _ from 'lodash';
@@ -109,7 +109,10 @@ export const searchSentiment = (sentiment={}) => ({
     type: SEARCH_SENTIMENT,
     sentiment
 });
-
+export const loadingStatus = (loading=true)=>({
+    type: CHANGE_LOADING,
+    loading
+});
 export const startSearchTerm = ()=>{
     return (dispatch,getState)=> {
         let term = getState().input.term;
@@ -139,7 +142,9 @@ export const startSearchTerm = ()=>{
             // console.log("pos",positiveWords);
             // console.log("neg",negativeWords);
             // console.log("score",score);
-            dispatch(combineSentiment({countPositive,countNegative,positiveWords,negativeWords,comparative,score}));
+            
+            dispatch(combineSentiment({countPositive,countNegative,positiveWords,negativeWords,comparative,score}))
+            dispatch(loadingStatus(true));
             
         }));
     }

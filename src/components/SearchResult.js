@@ -17,6 +17,7 @@ export class SearchResult extends Component{
         //     <h1>positive : {result.positive.length > 0 ? _.join(result.positive, ', ') : <p>none</p>}</h1>
         // </div>) : 
         // <p>no analytics</p>;
+        var Loader = require('react-loader');
 
         let results = this.props && this.props.result.length > 0 && this.props.sentiment.length >= this.props.result.length ?
         this.props.result.map((result,index)=> 
@@ -39,10 +40,13 @@ export class SearchResult extends Component{
         <p>no result</p>;
         return(
             <div className="container-fluid">
+            <Loader loaded={this.props.loading}>
                 <ul className="list-group">
                     {results}
                     
                 </ul>
+            </Loader>
+                
             </div>
         )  
     }
@@ -54,7 +58,8 @@ const mapStateToProps = (state) => {
     return {
       limit: state.input.limit,
       result: state.searchResult,
-      sentiment : state.sentiment
+      sentiment : state.sentiment,
+      loading: state.loading
     };
 };
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {changingTerm,startSearchTerm,startAddSavedChart} from '../actions/search';
+import {changingTerm,startSearchTerm,startAddSavedChart,loadingStatus} from '../actions/search';
 import {startLogout} from '../actions/auth';
 import swal from 'sweetalert';
 import { startLogin } from '../actions/auth';
@@ -45,7 +45,7 @@ export class SearchForm extends Component{
             <form onSubmit={this.onSubmit}>
                 <input type="text" placeholder="SearchTerms" value={this.props.input.term} onChange={this.onTermChange}/>
                 <input type="number" max="250" placeholder="SearchLimits" value={this.props.input.limit} onChange={this.onLimitChange}/>
-                <button className="btn btn-primary btn-lg m-1" onClick={()=>{this.props.startSearchTerm(); this.props.history.push('/analytics')}} >submit</button>
+                <button className="btn btn-primary btn-lg m-1" onClick={()=>{this.props.startSearchTerm(); this.props.loadingStatus(false);this.props.history.push('/analytics')}} >submit</button>
                 {loginLogoutButton}
                 {buttonFavs}
                 <br/>
@@ -74,7 +74,8 @@ const mapDispatchToProps = (dispatch) => ({
     startSearchTerm: ()=> dispatch(startSearchTerm()),
     startAddSavedChart: (term,limit,dataSaved)=> dispatch(startAddSavedChart(term,limit,dataSaved)),
     startLogout: ()=> dispatch(startLogout()),
-    startLogin: () => dispatch(startLogin())
+    startLogin: () => dispatch(startLogin()),
+    loadingStatus: (loading)=> dispatch(loadingStatus(loading))
 });
 
 const mapStateToProps = (state) => {

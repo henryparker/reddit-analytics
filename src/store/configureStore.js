@@ -6,6 +6,7 @@ import analyticsReducer from '../reducers/analytics';
 import combineSentimentsReducer from '../reducers/combineSentiments';
 import favoriteChartReducer from '../reducers/favoriteChart';
 import authReducer from '../reducers/auth';
+import loadingReducer from '../reducers/loading'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
@@ -16,7 +17,8 @@ export default () => {
       sentiment: analyticsReducer,
       combineSentiments: combineSentimentsReducer,
       favoriteChartData: favoriteChartReducer,
-      auth: authReducer
+      auth: authReducer,
+      loading: loadingReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );
