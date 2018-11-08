@@ -1,4 +1,4 @@
-![oops image is not showing](http://g.recordit.co/mFwQsxzjpb.gif)
+![oops image is not showing](https://66.media.tumblr.com/6720b50068d4cde35e43def03c8059dc/tumblr_phv00eTASi1xm7h5mo1_1280.gif)
 
 This app measure sentiment of selected words on Reddit.
 <h4>url: https://feelreddit.com/ or https://reddit-analytics-1.netlify.com/</h4>
