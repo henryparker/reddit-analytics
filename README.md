@@ -17,5 +17,3 @@ I really like reddit and thought it would be cool to know the sentiments of sear
 
 <li><h3>BackEnd: Firebase</h3></li>
 </ul>
-
-<img src="/ezgif.com-video-to-gif (1).gif"/>
