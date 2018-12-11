@@ -1,48 +1,37 @@
 {
-  "name": "twitter-analytics-tool",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "bluebird": "^3.5.2",
-    "chart.js": "^2.7.3",
-    "cross-env": "^5.2.0",
-    "dotenv": "^6.1.0",
-    "firebase": "^4.2.0",
-    "json-stringify-safe": "^5.0.1",
-    "luxon": "^1.4.4",
-    "moment": "^2.22.2",
-    "react": "^16.5.2",
-    "react-chartjs": "^1.2.0",
-    "react-chartjs-2": "^2.7.4",
-    "react-dom": "^16.5.2",
-    "react-fast-compare": "^2.0.2",
-    "react-loader": "^2.4.5",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.5",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "sentiment": "^5.0.1",
-    "snoowrap": "^1.15.2",
-    "spin.js": "^4.0.0",
-    "sweetalert": "^2.1.1",
-    "toastr": "^2.1.4",
-    "uid": "0.0.2",
-    "uuid": "^3.3.2"
-  },
+  "name": "reddit-analytics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henryparker/reddit-analytics.git"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "keywords": [
+    "node",
+    "heroku",
+    "create-react-app",
+    "react"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henryparker/reddit-analytics/issues"
+  },
+  "homepage": "https://github.com/henryparker/reddit-analytics#readme",
+  "dependencies": {
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.15",
+    "passport": "^0.4.0"
+  }
 }
