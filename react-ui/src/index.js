@@ -8,6 +8,9 @@ import configureStore from './store/configureStore';
 import * as serviceWorker from './serviceWorker';
 import {startSetSavedChart} from './actions/search';
 import {login,logout} from './actions/auth';
+import axios from 'axios';
+window.axios = axios;
+
 // require('dotenv').config();
 export const store = configureStore();
 const print = ()=>{

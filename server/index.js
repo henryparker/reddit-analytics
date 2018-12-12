@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const keys = require('./config/dev');
 const passport = require('passport');
+
+
+
 require('./models/User');
+require('./models/FavoriteChart');
 require('./services/passport');
  const User = mongoose.model('users');
 mongoose.Promise = global.Promise;
@@ -20,6 +24,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoute')(app);
-
+require('./routes/chartRoute')(app);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

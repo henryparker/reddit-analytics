@@ -16,10 +16,9 @@ const AppRouter = () => (
       <SearchForm history={history}/>
       <Switch>
           <Route path="/" component={SearchDashboard} exact={true}/>
-          <PrivateRoute path="/saved-analytics/:id" component={IndividualSavedAnalytic} />
-          <Route path="/analytics" component={AnalyticsDashboard}/>
-          <PrivateRoute path="/saved-analytics" component={SavedChartDashboard}/>
-          
+          <PrivateRoute path="/saved-analytics/:id" component={IndividualSavedAnalytic} exact={true}/>
+          <Route path="/analytics" component={AnalyticsDashboard} exact={true}/>
+          <PrivateRoute path="/saved-analytics" component={SavedChartDashboard} exact={true}/>
       </Switch>
     </div>
   </Router>
