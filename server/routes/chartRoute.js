@@ -10,7 +10,7 @@ module.exports = app =>{
     app.post('/savedChart',async(req,res)=>{
         const chart = await new Chart({
             _user: req.user.id,
-            ...req.body
+            data:req.body
         }).save();
         res.send(chart);
     })
