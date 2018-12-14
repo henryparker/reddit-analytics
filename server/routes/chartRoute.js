@@ -13,6 +13,13 @@ module.exports = app =>{
             data:req.body
         }).save();
         res.send(chart);
+        
     })
+
+    app.delete('/savedChart',async(req,res)=>{
+        await res.send(req.body);
+        Chart.find({_id:req.body.id}).deleteOne().exec();
+    })
+
     
 }

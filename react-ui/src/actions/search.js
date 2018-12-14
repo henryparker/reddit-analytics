@@ -122,15 +122,24 @@ export const removeSavedChart = (id)=>({
     id
 });
 
+
+
 export const startRemoveSavedChart = (id)=>{
     return (dispatch,getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/favoriteChartData/${id}`).remove().then(()=>{
-           dispatch(removeSavedChart( id )); 
+        axios.delete('/savedChart',{data:{id:id}}).then(()=>{
+            dispatch(removeSavedChart(id));
         })
         
 }};
 
+// export const startRemoveSavedChart = (id)=>{
+//     return (dispatch,getState) => {
+//         const uid = getState().auth.uid;
+//         return database.ref(`users/${uid}/favoriteChartData/${id}`).remove().then(()=>{
+//            dispatch(removeSavedChart( id )); 
+//         })
+        
+// }};
 export const changingTerm = (term="",limit=25) =>({
     type: CHANGE_TERM,
     payload: {

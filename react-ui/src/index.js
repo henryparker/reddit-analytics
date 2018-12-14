@@ -43,7 +43,12 @@ authState.then((res)=>{
   if(res.data._id){
     
     store.dispatch(login(res.data._id));
-    renderApp();
+    store.dispatch(startSetSavedChart()).then(()=>{
+      renderApp();
+        if(history.location.pathname === '/'){
+          history.push('/dashboard');
+        }
+    })
   }else{
     renderApp();
     store.dispatch(logout());
