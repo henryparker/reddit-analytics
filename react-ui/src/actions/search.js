@@ -5,25 +5,41 @@ import _ from 'lodash';
 import moment from 'moment';
 import isEqual from 'react-fast-compare';
 import database from '../firebase/firebase';
+import axios from 'axios';
 const sentiment = new Sentiment();
 
 export const setSavedChart = (data={})=>({
     type: SET_SAVED_CHART,
     data
 })
+// export const startSetSavedChart =()=>{
+//     return(dispatch,getState)=>{
+//         const uid = getState().auth.uid;
+//         return database.ref(`users/${uid}/favoriteChartData`).once('value').then((snapshot)=>{
+//             const data = [];
+//             snapshot.forEach((childSnapshot)=>{
+//                 data.push({
+//                     id:childSnapshot.key,
+//                     ...childSnapshot.val()
+//                 });
+//             });
+//             dispatch(setSavedChart(data));
+//         });
+//     };
+// };
+
 export const startSetSavedChart =()=>{
     return(dispatch,getState)=>{
-        const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/favoriteChartData`).once('value').then((snapshot)=>{
-            const data = [];
-            snapshot.forEach((childSnapshot)=>{
+        return axios.get('/savedChart').then(res=>{
+            let data = [];
+            res.data.forEach((child)=>{
                 data.push({
-                    id:childSnapshot.key,
-                    ...childSnapshot.val()
-                });
+                    id:child._id,
+                    ...child.data
+                })
             });
             dispatch(setSavedChart(data));
-        });
+        })
     };
 };
 
@@ -39,33 +55,61 @@ export const addSavedChart = (payload={}) =>({
     // }
 });
 
+// export const startAddSavedChart = (term="",limit,dataSaved) =>{
+//     return (dispatch,getState)=>{
+//         const uid = getState().auth.uid;
+//         const state = getState().favoriteChartData;
+//         const date = moment().format("YYYY-MM-DD HH:mm");
+//         const payload ={term,limit,dataSaved,date};
+//         if(state.length === 0){
+//             return database.ref(`users/${uid}/favoriteChartData`).push(payload).then((ref)=>{
+//                 dispatch(addSavedChart({
+//                   id : ref.key,
+//                   ...payload
+//                 }))
+                
+//             })
+//         }else if(state.some((val)=>{return isEqual(val.dataSaved,payload.dataSaved)}) || 
+//         state.some((val)=>{ return val.term === payload.term && 
+//             val.limit === payload.limit && 
+//             moment().diff(moment(val.date,"YYYY-MM-DD HH:mm"),'hours') < 24})){
+
+//         }else{
+//             return database.ref(`users/${uid}/favoriteChartData`).push(payload).then((ref)=>{
+//                 dispatch(addSavedChart({
+//                   id : ref.key,
+//                   ...payload
+//                 }))
+                
+//             })
+//         }
+        
+//     }
+    
+// };
+
 export const startAddSavedChart = (term="",limit,dataSaved) =>{
     return (dispatch,getState)=>{
-        const uid = getState().auth.uid;
+        // const uid = getState().auth.uid;
         const state = getState().favoriteChartData;
         const date = moment().format("YYYY-MM-DD HH:mm");
         const payload ={term,limit,dataSaved,date};
         if(state.length === 0){
-            return database.ref(`users/${uid}/favoriteChartData`).push(payload).then((ref)=>{
-                dispatch(addSavedChart({
-                  id : ref.key,
-                  ...payload
-                }))
-                
-            })
+            return axios.post('/savedChart',payload).then((res)=>{dispatch(addSavedChart({
+                id: res.data._id,
+                ...payload
+            }))})
+            
         }else if(state.some((val)=>{return isEqual(val.dataSaved,payload.dataSaved)}) || 
         state.some((val)=>{ return val.term === payload.term && 
             val.limit === payload.limit && 
             moment().diff(moment(val.date,"YYYY-MM-DD HH:mm"),'hours') < 24})){
 
         }else{
-            return database.ref(`users/${uid}/favoriteChartData`).push(payload).then((ref)=>{
-                dispatch(addSavedChart({
-                  id : ref.key,
-                  ...payload
-                }))
-                
-            })
+            return axios.post('/savedChart',payload).then((res)=>{dispatch(addSavedChart({
+                id: res.data._id,
+                ...payload
+            }))})
         }
         
     }

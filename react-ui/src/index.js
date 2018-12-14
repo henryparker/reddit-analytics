@@ -21,35 +21,35 @@ const print = ()=>{
 store.subscribe(print);
 
 
-// ReactDOM.render(<h1 className="display-1">Loading...</h1>, document.getElementById('root'));
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<h1 className="display-1">Loading...</h1>, document.getElementById('root'));
+// ReactDOM.render(<App/>, document.getElementById('root'));
 
 // store.dispatch(startSetSavedChart()).then(()=>{
 //     ReactDOM.render(<App />, document.getElementById('root'));
 // })
 
-// let hasRendered = false;
-// const renderApp = () => {
-//   if (!hasRendered) {
-//     ReactDOM.render(<App />, document.getElementById('root'));
-//     hasRendered = true;
-//   }
-// };
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(<App />, document.getElementById('root'));
+    hasRendered = true;
+  }
+};
 // renderApp();
 // console.log("hi");
 
-// authState.then((res)=>{
-//   console.log(res);
-//   if(res.data._id){
+authState.then((res)=>{
+  console.log(res);
+  if(res.data._id){
     
-//     store.dispatch(login(res.data._id));
-//     renderApp();
-//   }else{
-//     renderApp();
-//     store.dispatch(logout());
-//     history.push('/');
-//   }
-// });
+    store.dispatch(login(res.data._id));
+    renderApp();
+  }else{
+    renderApp();
+    store.dispatch(logout());
+    history.push('/');
+  }
+});
 
 // firebase.auth().onAuthStateChanged((user) => {
 //   if (user) {
