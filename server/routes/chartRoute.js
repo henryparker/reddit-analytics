@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-
-const Chart = mongoose.model('favoriteChartSchema')
+const requireLogin = require('../middlewares/requireLogin');
+const Chart = mongoose.model('favoriteChartSchema');
 module.exports = app =>{
-    app.get('/savedChart',async (req,res)=>{
+    app.get('/savedChart',requireLogin, async (req,res)=>{
         const chart = await Chart.find({ _user: req.user.id });
         res.send(chart);
     })
 
-    app.post('/savedChart',async(req,res)=>{
+    app.post('/savedChart',requireLogin,async(req,res)=>{
         const chart = await new Chart({
             _user: req.user.id,
             data:req.body
@@ -16,7 +16,7 @@ module.exports = app =>{
         
     })
 
-    app.delete('/savedChart',async(req,res)=>{
+    app.delete('/savedChart',requireLogin,async(req,res)=>{
         await res.send(req.body);
         Chart.find({_id:req.body.id}).deleteOne().exec();
     })
