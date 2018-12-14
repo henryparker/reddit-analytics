@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-
+import axios from 'axios';
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -14,6 +14,7 @@ const config = {
   const database = firebase.database();
   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
+  let authState = axios.get('/auth/current_user')
   // firebase.database().ref().set({
   //   name:"Mickey"
   // });
@@ -21,6 +22,6 @@ const config = {
   // firebase.database().ref().set({
   //   name:"ok"
   // });
-  export { firebase, googleAuthProvider, database as default };
+  export { authState, firebase, googleAuthProvider, database as default };
 
   
