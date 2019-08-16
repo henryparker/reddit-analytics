@@ -1,12 +1,11 @@
-import {CHANGE_LOADING} from '../action-types';
+import { CHANGE_LOADING } from '../action-types';
 
-export default ( state = true ,action)=>{
+export default (state = true, action) => {
+  switch (action.type) {
+    case CHANGE_LOADING:
+      return action.loading;
 
-    switch (action.type){
-        case CHANGE_LOADING:
-            return action.loading;
-        
-        default:
-            return state;
-    }
-}
+    default:
+      return state;
+  }
+};

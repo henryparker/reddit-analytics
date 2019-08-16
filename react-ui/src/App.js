@@ -2,12 +2,8 @@ import './firebase/firebase';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import './App.css';
-import {store} from './index';
+import { store } from './index';
 import AppRouter from './routers/AppRouter';
-
-
-
-
 
 class App extends Component {
   render() {
@@ -15,15 +11,14 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1 className="display-1"> This is a reddit analysis app</h1>
-          <br/>
+          <br />
           <Provider store={store}>
-            <AppRouter/>
+            <AppRouter />
           </Provider>
         </header>
       </div>
     );
   }
 }
-
 
 export default App;

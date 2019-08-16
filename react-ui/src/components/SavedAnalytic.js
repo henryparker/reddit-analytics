@@ -10,7 +10,7 @@
 //         <div>
 //             <SearchForm></SearchForm>
 //           <h1>This will be saved analytics</h1>
-          
+
 //           {this.props.favoriteChartData.map(val=> val.dataSaved).map(val1=>val1)}
 //         </div>
 //         )

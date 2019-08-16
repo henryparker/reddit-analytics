@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
-const favoriteChartSchema = new Schema({
+const favoriteChartSchema = new Schema(
+  {
     _user: { type: Schema.Types.ObjectId, ref: 'User' }
-},{strict:false})
+  },
+  { strict: false }
+);
 
-mongoose.model('favoriteChartSchema',favoriteChartSchema);
+mongoose.model('favoriteChartSchema', favoriteChartSchema);

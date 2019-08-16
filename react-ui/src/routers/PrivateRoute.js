@@ -7,18 +7,15 @@ export const PrivateRoute = ({
   component: Component,
   ...rest
 }) => (
-    <Route {...rest} component={(props) => (
-      isAuthenticated ? (
-         
-          <Component {...props} />
-        
-      ) :(
-          <Redirect to="/" />
-        )
-    )} />
-  );
+  <Route
+    {...rest}
+    component={props =>
+      isAuthenticated ? <Component {...props} /> : <Redirect to="/" />
+    }
+  />
+);
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isAuthenticated: !!state.auth.uid
 });
 

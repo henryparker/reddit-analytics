@@ -1,15 +1,14 @@
-import {LOGIN,LOGOUT} from '../action-types';
+import { LOGIN, LOGOUT } from '../action-types';
 
 export default (state = {}, action) => {
-    switch (action.type) {
-      case LOGIN:
-        return {
-          uid: action.uid
-        };
-      case LOGOUT:
-        return {};
-      default:
-        return state;
-    }
-  };
-  
+  switch (action.type) {
+    case LOGIN:
+      return {
+        uid: action.uid
+      };
+    case LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};

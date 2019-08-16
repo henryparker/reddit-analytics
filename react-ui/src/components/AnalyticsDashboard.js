@@ -2,8 +2,7 @@ import React from 'react';
 import SearchAnalytics from './SearchAnalytics';
 const AnalyticsDashboard = () => (
   <div>
-      
-      <SearchAnalytics/>
+    <SearchAnalytics />
   </div>
 );
 

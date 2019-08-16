@@ -7,21 +7,19 @@ const config = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
-  };
-  
-  firebase.initializeApp(config);
-  
-  const database = firebase.database();
-  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+};
 
-  let authState = axios.get('/auth/current_user')
-  // firebase.database().ref().set({
-  //   name:"Mickey"
-  // });
+firebase.initializeApp(config);
 
-  // firebase.database().ref().set({
-  //   name:"ok"
-  // });
-  export { authState, firebase, googleAuthProvider, database as default };
+const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-  
+let authState = axios.get('/auth/current_user');
+// firebase.database().ref().set({
+//   name:"Mickey"
+// });
+
+// firebase.database().ref().set({
+//   name:"ok"
+// });
+export { authState, firebase, googleAuthProvider, database as default };

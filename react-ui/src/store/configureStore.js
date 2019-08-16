@@ -6,7 +6,7 @@ import analyticsReducer from '../reducers/analytics';
 import combineSentimentsReducer from '../reducers/combineSentiments';
 import favoriteChartReducer from '../reducers/favoriteChart';
 import authReducer from '../reducers/auth';
-import loadingReducer from '../reducers/loading'
+import loadingReducer from '../reducers/loading';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {

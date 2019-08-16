@@ -8,8 +8,11 @@ export const LoginPage = ({ startLogin }) => (
   </div>
 );
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   startLogin: () => dispatch(startLogin())
 });
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(
+  null,
+  mapDispatchToProps
+)(LoginPage);
